@@ -121,7 +121,7 @@ Berikut adalah ringkasan penggunaan AI (GitHub Copilot) selama proses pengerjaan
 
 ### 2️⃣ Link Chat DeepSeek
 
-🔗 **DeepSeek Chat Log**: [https://chat.deepseek.com](https://chat.deepseek.com)
+🔗 **DeepSeek Chat Log**: [https://chat.deepseek.com/share/cr0ks2wah90ka5wmhp)
 
 ### 3️⃣ Contoh Prompt yang Digunakan
 
@@ -152,8 +152,8 @@ Apa maksud error tersebut dan bagaimana cara memperbaikinya?
 
 ## 👨‍🎓 Identitas
 
-* **Nama**: (Isi Nama Mahasiswa)
-* **NIM**: (Isi NIM)
+* **Nama**: Ibrahim Bahaly
+* **NIM**: 43240381
 * **Mata Kuliah**: Pemrograman Web Lanjut
 * **Framework**: Laravel 12
 
