@@ -11,15 +11,16 @@ return new class extends Migration
      */
    
        public function up(): void
-{
-    Schema::create('mata_kuliahs', function (Blueprint $table) {
-        $table->string('kode')->primary();
-        $table->string('nama');
-        $table->integer('sks');
-        $table->string('dosen');
-        $table->timestamps();
-    });
-}
+    {
+        Schema::create('mata_kuliahs', function (Blueprint $table) {
+            $table->id();
+            $table->string('kode')->unique();
+            $table->string('nama');
+            $table->integer('sks');
+            $table->string('dosen');
+            $table->timestamps();
+        });
+    }
 
 
     /**

@@ -15,8 +15,13 @@ return new class extends Migration
             $table->string('nim')->primary();
             $table->string('nama');
             $table->string('kelas');
-            $table->string('matakuliah');
+            $table->unsignedBigInteger('matakuliah_id');
             $table->timestamps();
+
+            $table->foreign('matakuliah_id')
+                  ->references('id')
+                  ->on('mata_kuliahs')
+                  ->onDelete('cascade');
         });
     }
 

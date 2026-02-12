@@ -14,6 +14,11 @@ class Mahasiswa extends Model
         'nim',
         'nama',
         'kelas',
-        'matakuliah',
+        'matakuliah_id',
     ];
+
+    public function matakuliah()
+    {
+        return $this->belongsTo(MataKuliah::class);
+    }
 }

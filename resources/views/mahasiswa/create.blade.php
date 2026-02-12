@@ -46,9 +46,16 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="matakuliah" class="form-label">{{ __('Mata Kuliah') }}</label>
-                            <input type="text" class="form-control @error('matakuliah') is-invalid @enderror" id="matakuliah" name="matakuliah" value="{{ old('matakuliah') }}" required>
-                            @error('matakuliah')
+                            <label for="matakuliah_id" class="form-label">{{ __('Mata Kuliah') }}</label>
+                            <select class="form-control @error('matakuliah_id') is-invalid @enderror" id="matakuliah_id" name="matakuliah_id" required>
+                                <option value="">-- Pilih Mata Kuliah --</option>
+                                @foreach($data_mk as $mk)
+                                    <option value="{{ $mk->id }}" {{ old('matakuliah_id') == $mk->id ? 'selected' : '' }}>
+                                        {{ $mk->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('matakuliah_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
