@@ -1,260 +1,127 @@
-<!DOCTYPE html>
-<html>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Daftar Mata Kuliah') }}
+        </h2>
+    </x-slot>
 
-<head>
-    <title>Daftar Mata Kuliah</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                        <h3 class="text-lg font-bold text-gray-800">
+                            Kurikulum & Mata Kuliah
+                        </h3>
+                        <a href="{{ route('mata-kuliah.create') }}"
+                            class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:outline-none focus:border-indigo-700 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150">
+                            + Tambah MK Baru
+                        </a>
+                    </div>
 
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            padding: 30px 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        h1 {
-            font-size: 2rem;
-            color: #2c3e50;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background-color: #3498db;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-        }
-
-        .btn-warning {
-            background-color: #f39c12;
-            color: white;
-            padding: 6px 12px;
-            font-size: 0.9rem;
-        }
-
-        .btn-warning:hover {
-            background-color: #e67e22;
-        }
-
-        .btn-danger {
-            background-color: #e74c3c;
-            color: white;
-            padding: 6px 12px;
-            font-size: 0.9rem;
-        }
-
-        .btn-danger:hover {
-            background-color: #c0392b;
-        }
-
-        .btn-info {
-            background-color: #3498db;
-            color: white;
-            padding: 6px 12px;
-            font-size: 0.9rem;
-        }
-
-        .btn-info:hover {
-            background-color: #2980b9;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-            border-radius: 8px 8px 0 0;
-        }
-
-        td {
-            padding: 15px;
-            border-bottom: 1px solid #ecf0f1;
-            color: #2c3e50;
-        }
-
-        tbody tr {
-            transition: background-color 0.3s ease;
-        }
-
-        tbody tr:hover {
-            background-color: #f8f9fa;
-        }
-
-        tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 8px;
-        }
-
-        .alert {
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .empty-message {
-            text-align: center;
-            padding: 40px;
-            color: #7f8c8d;
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
-
-            table {
-                font-size: 0.9rem;
-            }
-
-            th,
-            td {
-                padding: 10px;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>📚 Daftar Mata Kuliah</h1>
-            <a href="{{ route('mata-kuliah.create') }}" class="btn btn-primary">+ Tambah Mata Kuliah</a>
+                    @if ($mataKuliahs->count() > 0)
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Mata Kuliah
+                                        </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            SKS
+                                        </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Dosen
+                                        </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Mahasiswa
+                                        </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Aksi
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    @foreach ($mataKuliahs as $mk)
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div class="flex-shrink-0 h-10 w-10">
+                                                        <div
+                                                            class="h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xs uppercase">
+                                                            {{ substr($mk->kode, 0, 4) }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="ml-4">
+                                                        <div class="text-sm font-medium text-gray-900">
+                                                            {{ $mk->nama }}
+                                                        </div>
+                                                        <div class="text-xs text-gray-500">
+                                                            Kode: {{ $mk->kode }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                                    {{ $mk->sks }} SKS
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                {{ $mk->dosen }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                                                <span
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $mk->mahasiswas_count > 0 ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-500' }}">
+                                                    {{ $mk->mahasiswas_count }} Orang
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                                <div class="flex justify-center space-x-2">
+                                                    <a href="{{ route('mata-kuliah.show', $mk->id) }}"
+                                                        class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 hover:bg-indigo-100 px-3 py-1 rounded-md transition duration-200">Detail</a>
+                                                    <a href="{{ route('mata-kuliah.edit', $mk->id) }}"
+                                                        class="text-yellow-600 hover:text-yellow-900 bg-yellow-50 hover:bg-yellow-100 px-3 py-1 rounded-md transition duration-200">Edit</a>
+                                                    <form action="{{ route('mata-kuliah.destroy', $mk->id) }}"
+                                                        method="POST" class="inline-block"
+                                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 px-3 py-1 rounded-md transition duration-200">Hapus</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <div class="text-center py-10">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                            <h3 class="mt-2 text-sm font-medium text-gray-900">Belum ada Mata Kuliah</h3>
+                            <p class="mt-1 text-sm text-gray-500">Silakan tambahkan mata kuliah baru.</p>
+                            <div class="mt-6">
+                                <a href="{{ route('mata-kuliah.create') }}"
+                                    class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    Tambah MK Baru
+                                </a>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
         </div>
-
-        @if (session('success'))
-            <div class="alert alert-success">
-                <span>{{ session('success') }}</span>
-                <button onclick="this.parentElement.style.display='none';"
-                    style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
-            </div>
-        @endif
-
-        @if ($mataKuliah->count())
-            <table>
-                <thead>
-                    <tr>
-                        <th>Kode</th>
-                        <th>Nama Mata Kuliah</th>
-                        <th>SKS</th>
-                        <th>Dosen</th>
-                        <th>Jumlah Mahasiswa</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($mataKuliah as $mk)
-                        <tr>
-                            <td><strong>{{ $mk->kode }}</strong></td>
-                            <td>{{ $mk->nama }}</td>
-                            <td><span
-                                    style="background-color: #ecf0f1; padding: 4px 8px; border-radius: 4px;">{{ $mk->sks }}</span>
-                            </td>
-                            <td>{{ $mk->dosen }}</td>
-                            <td>
-                                <span
-                                    style="background-color: #d5f5e3; padding: 4px 10px; border-radius: 4px; font-weight: 600; color: #27ae60;">{{ $mk->mahasiswas_count }}
-                                    mahasiswa</span>
-                            </td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a href="{{ route('mata-kuliah.show', $mk->id) }}" class="btn btn-info">👥 Lihat
-                                        Mahasiswa</a>
-                                    <a href="{{ route('mata-kuliah.edit', $mk->id) }}" class="btn btn-warning">Edit</a>
-                                    <form action="{{ route('mata-kuliah.destroy', $mk->id) }}" method="POST"
-                                        style="display: inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <div class="empty-message">
-                <p>📭 Belum ada data mata kuliah</p>
-            </div>
-        @endif
     </div>
-</body>
-
-</html>
+</x-app-layout>

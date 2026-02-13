@@ -1,202 +1,84 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tambah Mata Kuliah</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Tambah Mata Kuliah') }}
+        </h2>
+    </x-slot>
 
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+    <div class="py-12">
+        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-8 text-gray-900">
+                    <form method="POST" action="{{ route('mata-kuliah.store') }}" class="space-y-6">
+                        @csrf
 
-        .container {
-            background-color: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            width: 100%;
-        }
+                        <!-- Kode MK -->
+                        <div>
+                            <label for="kode" class="block text-sm font-medium text-gray-700">Kode Mata
+                                Kuliah</label>
+                            <div class="mt-1">
+                                <input type="text" name="kode" id="kode"
+                                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md @error('kode') border-red-300 @enderror"
+                                    value="{{ old('kode') }}" placeholder="Contoh: TIF1234">
+                            </div>
+                            @error('kode')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-        h1 {
-            font-size: 2rem;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
+                        <!-- Nama MK -->
+                        <div>
+                            <label for="nama" class="block text-sm font-medium text-gray-700">Nama Mata
+                                Kuliah</label>
+                            <div class="mt-1">
+                                <input type="text" name="nama" id="nama"
+                                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md @error('nama') border-red-300 @enderror"
+                                    value="{{ old('nama') }}" placeholder="Contoh: Algoritma Pemrograman">
+                            </div>
+                            @error('nama')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-        .form-group {
-            margin-bottom: 25px;
-        }
+                        <!-- SKS -->
+                        <div>
+                            <label for="sks" class="block text-sm font-medium text-gray-700">SKS</label>
+                            <div class="mt-1">
+                                <input type="number" name="sks" id="sks" min="1" max="6"
+                                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md @error('sks') border-red-300 @enderror"
+                                    value="{{ old('sks') }}" placeholder="Contoh: 3">
+                            </div>
+                            @error('sks')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #2c3e50;
-            font-weight: 600;
-            font-size: 1rem;
-        }
+                        <!-- Dosen -->
+                        <div>
+                            <label for="dosen" class="block text-sm font-medium text-gray-700">Nama Dosen</label>
+                            <div class="mt-1">
+                                <input type="text" name="dosen" id="dosen"
+                                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md @error('dosen') border-red-300 @enderror"
+                                    value="{{ old('dosen') }}" placeholder="Masukkan nama dosen pengampu">
+                            </div>
+                            @error('dosen')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-        input, textarea, select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #ecf0f1;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 35px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            text-decoration: none;
-            text-align: center;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background-color: #3498db;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-        }
-
-        .btn-secondary {
-            background-color: #95a5a6;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background-color: #7f8c8d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(149, 165, 166, 0.3);
-        }
-
-        .error {
-            color: #e74c3c;
-            font-size: 0.85rem;
-            margin-top: 6px;
-        }
-
-        .form-group.has-error input,
-        .form-group.has-error textarea,
-        .form-group.has-error select {
-            border-color: #e74c3c;
-        }
-
-        .alert-error {
-            background-color: #fadbd8;
-            color: #c0392b;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 1px solid #f5b7b1;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 25px;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .form-actions {
-                flex-direction: column;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>➕ Tambah Mata Kuliah</h1>
-
-        @if ($errors->any())
-            <div class="alert-error">
-                <strong>Terjadi kesalahan!</strong>
-                <ul style="padding-left: 20px; margin-top: 10px;">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+                        <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
+                            <a href="{{ route('mata-kuliah.index') }}"
+                                class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition">
+                                Batal
+                            </a>
+                            <button type="submit"
+                                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition">
+                                Simpan Mata Kuliah
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        @endif
-
-        <form action="{{ route('mata-kuliah.store') }}" method="POST">
-            @csrf
-
-            <div class="form-group @error('kode') has-error @enderror">
-                <label for="kode">Kode Mata Kuliah</label>
-                <input type="text" id="kode" name="kode" value="{{ old('kode') }}" placeholder="Contoh: MK001" required>
-                @error('kode')
-                    <div class="error">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="form-group @error('nama') has-error @enderror">
-                <label for="nama">Nama Mata Kuliah</label>
-                <input type="text" id="nama" name="nama" value="{{ old('nama') }}" placeholder="Contoh: Pemrograman Web" required>
-                @error('nama')
-                    <div class="error">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="form-group @error('sks') has-error @enderror">
-                <label for="sks">SKS (1-6)</label>
-                <input type="number" id="sks" name="sks" value="{{ old('sks') }}" min="1" max="6" placeholder="Contoh: 3" required>
-                @error('sks')
-                    <div class="error">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="form-group @error('dosen') has-error @enderror">
-                <label for="dosen">Dosen Pengampu</label>
-                <input type="text" id="dosen" name="dosen" value="{{ old('dosen') }}" placeholder="Contoh: Pak. Rudi" required>
-                @error('dosen')
-                    <div class="error">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{ route('mata-kuliah.index') }}" class="btn btn-secondary">Batal</a>
-            </div>
-        </form>
+        </div>
     </div>
-</body>
-</html>
+</x-app-layout>

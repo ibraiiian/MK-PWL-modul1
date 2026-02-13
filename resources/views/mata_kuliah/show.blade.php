@@ -1,278 +1,108 @@
-<!DOCTYPE html>
-<html>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Detail Mata Kuliah') }}
+        </h2>
+    </x-slot>
 
-<head>
-    <title>Detail Mata Kuliah</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            padding: 30px 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        h1 {
-            font-size: 2rem;
-            color: #2c3e50;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-block;
-            font-weight: 600;
-        }
-
-        .btn-secondary {
-            background-color: #95a5a6;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background-color: #7f8c8d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(149, 165, 166, 0.3);
-        }
-
-        /* Detail Card */
-        .detail-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            padding: 30px;
-            color: white;
-            margin-bottom: 30px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .detail-item {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .detail-label {
-            font-size: 0.85rem;
-            opacity: 0.8;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .detail-value {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        /* Mahasiswa Section */
-        .section-title {
-            font-size: 1.4rem;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .badge-count {
-            background-color: #3498db;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        td {
-            padding: 15px;
-            border-bottom: 1px solid #ecf0f1;
-            color: #2c3e50;
-        }
-
-        tbody tr {
-            transition: background-color 0.3s ease;
-        }
-
-        tbody tr:hover {
-            background-color: #f8f9fa;
-        }
-
-        tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        .empty-message {
-            text-align: center;
-            padding: 40px;
-            color: #7f8c8d;
-            font-size: 1.1rem;
-        }
-
-        .avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-right: 10px;
-        }
-
-        .student-name {
-            display: flex;
-            align-items: center;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
-
-            .detail-card {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            table {
-                font-size: 0.9rem;
-            }
-
-            th,
-            td {
-                padding: 10px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>📖 Detail Mata Kuliah</h1>
-            <a href="{{ route('mata-kuliah.index') }}" class="btn btn-secondary">← Kembali</a>
-        </div>
-
-        {{-- Detail Mata Kuliah --}}
-        <div class="detail-card">
-            <div class="detail-item">
-                <span class="detail-label">Kode</span>
-                <span class="detail-value">{{ $mataKuliah->kode }}</span>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <!-- Header Card -->
+            <div
+                class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl mb-8 p-8 text-white relative overflow-hidden">
+                <div class="absolute right-0 top-0 h-full w-1/2 bg-white/10 transform skew-x-12 translate-x-12"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-4 mb-2">
+                        <span
+                            class="bg-white/20 text-indigo-50 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase">{{ $mk->kode }}</span>
+                        <span
+                            class="bg-white/20 text-indigo-50 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase">{{ $mk->sks }}
+                            SKS</span>
+                    </div>
+                    <h1 class="text-3xl font-bold mb-2">{{ $mk->nama }}</h1>
+                    <p class="text-indigo-100 text-lg flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                        Dosen: {{ $mk->dosen }}
+                    </p>
+                </div>
             </div>
-            <div class="detail-item">
-                <span class="detail-label">Nama Mata Kuliah</span>
-                <span class="detail-value">{{ $mataKuliah->nama }}</span>
-            </div>
-            <div class="detail-item">
-                <span class="detail-label">SKS</span>
-                <span class="detail-value">{{ $mataKuliah->sks }}</span>
-            </div>
-            <div class="detail-item">
-                <span class="detail-label">Dosen Pengampu</span>
-                <span class="detail-value">{{ $mataKuliah->dosen }}</span>
-            </div>
-        </div>
 
-        {{-- Daftar Mahasiswa --}}
-        <div class="section-title">
-            👥 Daftar Mahasiswa
-            <span class="badge-count">{{ $mataKuliah->mahasiswas->count() }} mahasiswa</span>
-        </div>
-
-        @if ($mataKuliah->mahasiswas->count())
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>NIM</th>
-                        <th>Nama</th>
-                        <th>Kelas</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($mataKuliah->mahasiswas as $index => $mhs)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td><strong>{{ $mhs->nim }}</strong></td>
-                            <td>
-                                <div class="student-name">
-                                    <div class="avatar">{{ substr($mhs->nama, 0, 1) }}</div>
-                                    {{ $mhs->nama }}
-                                </div>
-                            </td>
-                            <td>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Main Content: Student List -->
+                <div class="md:col-span-2">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6">
+                            <h3
+                                class="text-lg font-bold text-gray-800 mb-4 border-b pb-2 flex items-center justify-between">
+                                Mahasiswa Terdaftar
                                 <span
-                                    style="background-color: #ecf0f1; padding: 4px 8px; border-radius: 4px;">{{ $mhs->kelas }}</span>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <div class="empty-message">
-                <p>📭 Belum ada mahasiswa yang mengambil mata kuliah ini</p>
-            </div>
-        @endif
-    </div>
-</body>
+                                    class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">{{ $mk->mahasiswas->count() }}
+                                    Orang</span>
+                            </h3>
 
-</html>
+                            @if ($mk->mahasiswas->count() > 0)
+                                <div class="grid grid-cols-1 gap-4">
+                                    @foreach ($mk->mahasiswas as $mhs)
+                                        <div
+                                            class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-indigo-50 transition border border-gray-100">
+                                            <div class="flex items-center gap-4">
+                                                <div
+                                                    class="h-10 w-10 rounded-full bg-indigo-200 flex items-center justify-center text-indigo-700 font-bold">
+                                                    {{ substr($mhs->nama, 0, 1) }}
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-semibold text-gray-900">{{ $mhs->nama }}</h4>
+                                                    <p class="text-sm text-gray-500">{{ $mhs->nim }} • Kelas
+                                                        {{ $mhs->kelas }}</p>
+                                                </div>
+                                            </div>
+                                            <a href="{{ route('mahasiswa.show', $mhs->nim) }}"
+                                                class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Lihat
+                                                Profil &rarr;</a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="text-center py-8 text-gray-500">
+                                    <p>Belum ada mahasiswa yang mengambil mata kuliah ini.</p>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar: Actions & Summary -->
+                <div class="md:col-span-1">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+                        <div class="p-6">
+                            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Aksi Cepat
+                            </h3>
+                            <div class="flex flex-col gap-3">
+                                <a href="{{ route('mata-kuliah.edit', $mk->id) }}"
+                                    class="w-full justify-center inline-flex items-center px-4 py-2 bg-yellow-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-yellow-700 focus:bg-yellow-700 active:bg-yellow-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                    Edit Mata Kuliah
+                                </a>
+                                <form action="{{ route('mata-kuliah.destroy', $mk->id) }}" method="POST"
+                                    onsubmit="return confirm('Hapus mata kuliah ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="w-full justify-center inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                        Hapus Mata Kuliah
+                                    </button>
+                                </form>
+                                <a href="{{ route('mata-kuliah.index') }}"
+                                    class="w-full justify-center inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                                    Kembali ke Daftar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

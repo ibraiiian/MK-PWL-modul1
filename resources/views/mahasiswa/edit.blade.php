@@ -1,79 +1,91 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Edit Mahasiswa') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Edit Mahasiswa') }}</div>
+    <div class="py-12">
+        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-8 text-gray-900">
+                    <form method="POST" action="{{ route('mahasiswa.update', $mahasiswa->nim) }}" class="space-y-6">
+                        @csrf
+                        @method('PUT')
 
-                    <div class="card-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
+                        <!-- NIM -->
+                        <div>
+                            <label for="nim" class="block text-sm font-medium text-gray-700">NIM</label>
+                            <div class="mt-1">
+                                <input type="text" name="nim" id="nim"
+                                    class="shadow-sm focus:ring-yellow-500 focus:border-yellow-500 block w-full sm:text-sm border-gray-300 rounded-md @error('nim') border-red-300 @enderror"
+                                    value="{{ old('nim', $mahasiswa->nim) }}" required>
                             </div>
-                        @endif
+                            @error('nim')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                        <form method="POST" action="{{ route('mahasiswa.update', $mahasiswa->nim) }}">
-                            @csrf
-                            @method('PUT')
-
-                            <div class="mb-3">
-                                <label for="nim" class="form-label">{{ __('NIM') }}</label>
-                                <input type="text" class="form-control @error('nim') is-invalid @enderror" id="nim"
-                                    name="nim" value="{{ $mahasiswa->nim }}" required>
-                                @error('nim')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                        <!-- Nama -->
+                        <div>
+                            <label for="nama" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
+                            <div class="mt-1">
+                                <input type="text" name="nama" id="nama"
+                                    class="shadow-sm focus:ring-yellow-500 focus:border-yellow-500 block w-full sm:text-sm border-gray-300 rounded-md @error('nama') border-red-300 @enderror"
+                                    value="{{ old('nama', $mahasiswa->nama) }}" required>
                             </div>
+                            @error('nama')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                            <div class="mb-3">
-                                <label for="nama" class="form-label">{{ __('Nama') }}</label>
-                                <input type="text" class="form-control @error('nama') is-invalid @enderror"
-                                    id="nama" name="nama" value="{{ $mahasiswa->nama }}" required>
-                                @error('nama')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                        <!-- Kelas -->
+                        <div>
+                            <label for="kelas" class="block text-sm font-medium text-gray-700">Kelas</label>
+                            <div class="mt-1">
+                                <input type="text" name="kelas" id="kelas"
+                                    class="shadow-sm focus:ring-yellow-500 focus:border-yellow-500 block w-full sm:text-sm border-gray-300 rounded-md @error('kelas') border-red-300 @enderror"
+                                    value="{{ old('kelas', $mahasiswa->kelas) }}" required>
                             </div>
+                            @error('kelas')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                            <div class="mb-3">
-                                <label for="kelas" class="form-label">{{ __('Kelas') }}</label>
-                                <input type="text" class="form-control @error('kelas') is-invalid @enderror"
-                                    id="kelas" name="kelas" value="{{ $mahasiswa->kelas }}" required>
-                                @error('kelas')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="matakuliah_id" class="form-label">{{ __('Mata Kuliah') }}</label>
-                                <select class="form-control @error('matakuliah_id') is-invalid @enderror" id="matakuliah_id"
-                                    name="matakuliah_id" required>
+                        <!-- Mata Kuliah -->
+                        <div>
+                            <label for="matakuliah_id" class="block text-sm font-medium text-gray-700">Mata
+                                Kuliah</label>
+                            <div class="mt-1">
+                                <select id="matakuliah_id" name="matakuliah_id"
+                                    class="shadow-sm focus:ring-yellow-500 focus:border-yellow-500 block w-full sm:text-sm border-gray-300 rounded-md @error('matakuliah_id') border-red-300 @enderror"
+                                    required>
                                     <option value="">-- Pilih Mata Kuliah --</option>
                                     @foreach ($data_mk as $mk)
                                         <option value="{{ $mk->id }}"
                                             {{ old('matakuliah_id', $mahasiswa->matakuliah_id) == $mk->id ? 'selected' : '' }}>
-                                            {{ $mk->nama }}
-                                        </option>
+                                            {{ $mk->nama }}</option>
                                     @endforeach
                                 </select>
-                                @error('matakuliah_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
                             </div>
+                            @error('matakuliah_id')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                            <div class="d-flex gap-2">
-                                <button type="submit" class="btn btn-primary">{{ __('Simpan') }}</button>
-                                <a href="{{ route('mahasiswa.index') }}" class="btn btn-secondary">{{ __('Batal') }}</a>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
+                            <a href="{{ route('mahasiswa.index') }}"
+                                class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition">
+                                Batal
+                            </a>
+                            <button type="submit"
+                                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition">
+                                Simpan Perubahan
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>
