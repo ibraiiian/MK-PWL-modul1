@@ -9,30 +9,13 @@ class MataKuliahController extends Controller
 {
     public function index()
     {
-        // 1. Membuat data mata kuliah (array)
-        $mataKuliah = [
-            [
-                'kode' => 'MK001',
-                'nama' => 'Pemrograman Web',
-                'sks' => 3,
-                'dosen' => 'Pak. Rudi'
-            ],
-            [
-                'kode' => 'MK002',
-                'nama' => 'Basis Data',
-                'sks' => 3,
-                'dosen' => 'Pak. Nana'
-            ],
-            [
-                'kode' => 'MK003',
-                'nama' => 'Jaringan Komputer',
-                'sks' => 2,
-                'dosen' => 'Pak. Martanto'
-            ],
-        ];
+        $mataKuliah = MataKuliah::withCount('mahasiswas')->get();
+        return view('mata_kuliah.index', compact('mataKuliah'));
+    }
 
-        // 2. Mengirim data ke view
-        return view('mata_kuliah', compact('mataKuliah'));
+    public function create()
+    {
+        return view('mata_kuliah.create');
     }
 
     public function store(Request $request)
@@ -47,10 +30,22 @@ class MataKuliahController extends Controller
         MataKuliah::create($request->all());
 
         return redirect()->route('mata-kuliah.index')
-            ->with('success', 'Data berhasil ditambahkan');
+            ->with('success', 'Data mata kuliah berhasil ditambahkan');
     }
 
-    public function update(Request $request, $kode)
+    public function show($id)
+    {
+        $mataKuliah = MataKuliah::with('mahasiswas')->findOrFail($id);
+        return view('mata_kuliah.show', compact('mataKuliah'));
+    }
+
+    public function edit($id)
+    {
+        $mataKuliah = MataKuliah::findOrFail($id);
+        return view('mata_kuliah.edit', compact('mataKuliah'));
+    }
+
+    public function update(Request $request, $id)
     {
         $request->validate([
             'nama' => 'required',
@@ -58,10 +53,19 @@ class MataKuliahController extends Controller
             'dosen' => 'required'
         ]);
 
-        $matakuliah = MataKuliah::findOrFail($kode);
+        $matakuliah = MataKuliah::findOrFail($id);
         $matakuliah->update($request->all());
 
         return redirect()->route('mata-kuliah.index')
-            ->with('success', 'Data berhasil diperbarui');
+            ->with('success', 'Data mata kuliah berhasil diperbarui');
+    }
+
+    public function destroy($id)
+    {
+        $matakuliah = MataKuliah::findOrFail($id);
+        $matakuliah->delete();
+
+        return redirect()->route('mata-kuliah.index')
+            ->with('success', 'Data mata kuliah berhasil dihapus');
     }
 }

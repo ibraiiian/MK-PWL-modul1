@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LatihanController;
-use App\Http\Controllers\MataKuliahController;
 use App\Http\Controllers\MahasiswaController;
-
+use App\Http\Controllers\MataKuliahController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,5 +11,5 @@ Route::get('/', function () {
 
 Route::get('/latihan', [LatihanController::class, 'index']);
 
-Route::get('/mata-kuliah', [MataKuliahController::class, 'index']);
+Route::resource('mata-kuliah', MataKuliahController::class);
 Route::resource('mahasiswa', MahasiswaController::class);

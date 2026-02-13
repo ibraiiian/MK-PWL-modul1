@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Edit Mata Kuliah</title>
     <style>
@@ -48,7 +49,9 @@
             font-size: 1rem;
         }
 
-        input, textarea, select {
+        input,
+        textarea,
+        select {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid #ecf0f1;
@@ -58,13 +61,17 @@
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        input:focus, textarea:focus, select:focus {
+        input:focus,
+        textarea:focus,
+        select:focus {
             outline: none;
             border-color: #3498db;
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
         }
 
-        input:disabled, textarea:disabled, select:disabled {
+        input:disabled,
+        textarea:disabled,
+        select:disabled {
             background-color: #ecf0f1;
             cursor: not-allowed;
         }
@@ -153,6 +160,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>✏️ Edit Mata Kuliah</h1>
@@ -168,7 +176,7 @@
             </div>
         @endif
 
-        <form action="{{ route('mata-kuliah.update', $mataKuliah->kode) }}" method="POST">
+        <form action="{{ route('mata-kuliah.update', $mataKuliah->id) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -180,7 +188,8 @@
 
             <div class="form-group @error('nama') has-error @enderror">
                 <label for="nama">Nama Mata Kuliah</label>
-                <input type="text" id="nama" name="nama" value="{{ old('nama', $mataKuliah->nama) }}" required>
+                <input type="text" id="nama" name="nama" value="{{ old('nama', $mataKuliah->nama) }}"
+                    required>
                 @error('nama')
                     <div class="error">{{ $message }}</div>
                 @enderror
@@ -188,7 +197,8 @@
 
             <div class="form-group @error('sks') has-error @enderror">
                 <label for="sks">SKS (1-6)</label>
-                <input type="number" id="sks" name="sks" value="{{ old('sks', $mataKuliah->sks) }}" min="1" max="6" required>
+                <input type="number" id="sks" name="sks" value="{{ old('sks', $mataKuliah->sks) }}"
+                    min="1" max="6" required>
                 @error('sks')
                     <div class="error">{{ $message }}</div>
                 @enderror
@@ -196,7 +206,8 @@
 
             <div class="form-group @error('dosen') has-error @enderror">
                 <label for="dosen">Dosen Pengampu</label>
-                <input type="text" id="dosen" name="dosen" value="{{ old('dosen', $mataKuliah->dosen) }}" required>
+                <input type="text" id="dosen" name="dosen" value="{{ old('dosen', $mataKuliah->dosen) }}"
+                    required>
                 @error('dosen')
                     <div class="error">{{ $message }}</div>
                 @enderror
@@ -209,4 +220,5 @@
         </form>
     </div>
 </body>
+
 </html>

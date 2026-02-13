@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Daftar Mata Kuliah</title>
     <style>
@@ -84,6 +85,17 @@
             background-color: #c0392b;
         }
 
+        .btn-info {
+            background-color: #3498db;
+            color: white;
+            padding: 6px 12px;
+            font-size: 0.9rem;
+        }
+
+        .btn-info:hover {
+            background-color: #2980b9;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -166,7 +178,8 @@
                 font-size: 0.9rem;
             }
 
-            th, td {
+            th,
+            td {
                 padding: 10px;
             }
 
@@ -176,6 +189,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -183,14 +197,15 @@
             <a href="{{ route('mata-kuliah.create') }}" class="btn btn-primary">+ Tambah Mata Kuliah</a>
         </div>
 
-        @if(session('success'))
+        @if (session('success'))
             <div class="alert alert-success">
                 <span>{{ session('success') }}</span>
-                <button onclick="this.parentElement.style.display='none';" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
+                <button onclick="this.parentElement.style.display='none';"
+                    style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
             </div>
         @endif
 
-        @if($mataKuliah->count())
+        @if ($mataKuliah->count())
             <table>
                 <thead>
                     <tr>
@@ -198,27 +213,39 @@
                         <th>Nama Mata Kuliah</th>
                         <th>SKS</th>
                         <th>Dosen</th>
+                        <th>Jumlah Mahasiswa</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($mataKuliah as $mk)
-                    <tr>
-                        <td><strong>{{ $mk->kode }}</strong></td>
-                        <td>{{ $mk->nama }}</td>
-                        <td><span style="background-color: #ecf0f1; padding: 4px 8px; border-radius: 4px;">{{ $mk->sks }}</span></td>
-                        <td>{{ $mk->dosen }}</td>
-                        <td>
-                            <div class="action-buttons">
-                                <a href="{{ route('mata-kuliah.edit', $mk->kode) }}" class="btn btn-warning">Edit</a>
-                                <form action="{{ route('mata-kuliah.destroy', $mk->kode) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
+                    @foreach ($mataKuliah as $mk)
+                        <tr>
+                            <td><strong>{{ $mk->kode }}</strong></td>
+                            <td>{{ $mk->nama }}</td>
+                            <td><span
+                                    style="background-color: #ecf0f1; padding: 4px 8px; border-radius: 4px;">{{ $mk->sks }}</span>
+                            </td>
+                            <td>{{ $mk->dosen }}</td>
+                            <td>
+                                <span
+                                    style="background-color: #d5f5e3; padding: 4px 10px; border-radius: 4px; font-weight: 600; color: #27ae60;">{{ $mk->mahasiswas_count }}
+                                    mahasiswa</span>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="{{ route('mata-kuliah.show', $mk->id) }}" class="btn btn-info">👥 Lihat
+                                        Mahasiswa</a>
+                                    <a href="{{ route('mata-kuliah.edit', $mk->id) }}" class="btn btn-warning">Edit</a>
+                                    <form action="{{ route('mata-kuliah.destroy', $mk->id) }}" method="POST"
+                                        style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"
+                                            onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -229,4 +256,5 @@
         @endif
     </div>
 </body>
+
 </html>
