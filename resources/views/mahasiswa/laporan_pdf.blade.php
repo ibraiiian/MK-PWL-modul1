@@ -5,6 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Laporan Mahasiswa</title>
     <style>
+        @page {
+            margin: 15mm 18mm 15mm 18mm;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +17,7 @@
 
         body {
             font-family: 'DejaVu Sans', Arial, sans-serif;
-            font-size: 12px;
+            font-size: 11px;
             color: #1a1a1a;
             background: #ffffff;
         }
@@ -27,7 +31,7 @@
         }
 
         .header .institution {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             color: #1e3a5f;
             letter-spacing: 1px;
@@ -35,7 +39,7 @@
         }
 
         .header .report-title {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
             color: #333;
             margin-top: 3px;
@@ -60,9 +64,9 @@
         }
 
         thead th {
-            padding: 9px 8px;
+            padding: 8px 7px;
             text-align: left;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             border: 1px solid #1e3a5f;
             text-transform: uppercase;
@@ -78,9 +82,9 @@
         }
 
         tbody td {
-            padding: 8px 8px;
+            padding: 7px 7px;
             border: 1px solid #c8d8e8;
-            font-size: 11px;
+            font-size: 10px;
             color: #333;
             vertical-align: middle;
         }
@@ -94,20 +98,22 @@
             margin-top: 25px;
             font-size: 10px;
             color: #888;
+            width: 100%;
         }
 
         .footer .signature-area {
             text-align: right;
             margin-bottom: 5px;
+            padding-right: 5px;
         }
 
         .footer .signature-area .place-date {
-            font-size: 11px;
+            font-size: 10px;
             color: #444;
         }
 
         .footer .signature-area .sign-name {
-            margin-top: 40px;
+            margin-top: 35px;
             font-size: 11px;
             font-weight: bold;
             color: #1e3a5f;
@@ -124,14 +130,15 @@
             padding-top: 6px;
             margin-top: 10px;
             text-align: center;
+            font-size: 9px;
         }
 
         .badge-mk {
             background-color: #e8f0fe;
             color: #1e3a5f;
-            padding: 2px 6px;
+            padding: 2px 5px;
             border-radius: 3px;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: bold;
         }
     </style>
