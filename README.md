@@ -121,7 +121,7 @@ Untuk menguji fitur **Custom Middleware** (Hapus Mahasiswa), daftarkan akun deng
 
 *   **Pengembang**: Ibrahim Bahaly (43240381)
 *   **Mata Kuliah**: Pemrograman Web Lanjut
-*   **Dosen Pengampu**: Bpk. Roni Nunu Nugraha
+*   **Dosen Pengampu**: Bpk. Rudi Kurniawan
 
 ---
 
