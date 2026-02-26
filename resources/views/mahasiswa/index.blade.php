@@ -77,7 +77,7 @@
                                                 {{ $mhs->kelas }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {{ $mhs->matakuliah->nama }}
+                                                {{ $mhs->matakuliah->nama ?? '-' }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                                 <div class="flex justify-center space-x-2">

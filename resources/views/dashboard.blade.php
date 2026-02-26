@@ -8,33 +8,30 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Welcome Banner -->
-            <div
-                class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl shadow-xl mb-8 text-white overflow-hidden relative">
-                <div class="absolute right-0 top-0 h-full w-1/2 bg-white/10 transform skew-x-12 translate-x-12"></div>
-                <div class="p-8 relative z-10 flex flex-col md:flex-row items-center justify-between">
-                    <div>
-                        <h1 class="text-3xl font-bold mb-2">Selamat datang, {{ Auth::user()->name }}! 👋</h1>
-                        <p class="text-blue-100 text-lg">Siap untuk mengelola data akademik hari ini?</p>
-                    </div>
-                    <div class="mt-6 md:mt-0 flex gap-3">
-                        <a href="{{ route('mahasiswa.create') }}"
-                            class="bg-white text-blue-600 px-5 py-2.5 rounded-lg font-semibold hover:bg-blue-50 transition shadow-lg flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 4v16m8-8H4"></path>
-                            </svg>
-                            Tambah Mahasiswa
-                        </a>
-                        <a href="{{ route('mata-kuliah.create') }}"
-                            class="bg-blue-500/30 text-white border border-white/50 px-5 py-2.5 rounded-lg font-semibold hover:bg-blue-500/50 transition flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
-                                </path>
-                            </svg>
-                            Tambah MK
-                        </a>
-                    </div>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 mb-8 p-8 flex flex-col md:flex-row items-center justify-between relative overflow-hidden">
+                <div class="absolute right-0 top-0 h-full w-1/3 bg-blue-50/50 rounded-l-full transform translate-x-1/2"></div>
+                <div class="relative z-10">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Selamat datang, {{ Auth::user()->name }}! 👋</h1>
+                    <p class="text-gray-500 text-lg">Siap untuk mengelola data akademik hari ini?</p>
+                </div>
+                <div class="mt-6 md:mt-0 flex gap-3 relative z-10">
+                    <a href="{{ route('mahasiswa.create') }}"
+                        class="bg-blue-600 text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition shadow-sm flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        Tambah Mahasiswa
+                    </a>
+                    <a href="{{ route('mata-kuliah.create') }}"
+                        class="bg-white text-gray-700 border border-gray-200 px-5 py-2.5 rounded-lg font-semibold hover:bg-gray-50 transition shadow-sm flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
+                        </svg>
+                        Tambah MK
+                    </a>
                 </div>
             </div>
 
