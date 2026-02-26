@@ -9,8 +9,8 @@ class MataKuliahController extends Controller
 {
     public function index()
     {
-        $mataKuliah = MataKuliah::withCount('mahasiswas')->get();
-        return view('mata_kuliah.index', compact('mataKuliah'));
+        $mataKuliahs = MataKuliah::withCount('mahasiswas')->get();
+        return view('mata_kuliah.index', compact('mataKuliahs'));
     }
 
     public function create()
