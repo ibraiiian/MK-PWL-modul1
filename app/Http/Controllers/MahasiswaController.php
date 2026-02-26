@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mahasiswa;
 use App\Models\MataKuliah;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MahasiswaController extends Controller
 {
@@ -95,5 +96,16 @@ class MahasiswaController extends Controller
         $mahasiswa->delete();
 
         return redirect()->route('mahasiswa.index');
+    }
+
+    /**
+     * Cetak laporan mahasiswa sebagai PDF.
+     */
+    public function cetak_pdf()
+    {
+        $mahasiswa = Mahasiswa::with('matakuliah')->get();
+        $pdf = Pdf::loadView('mahasiswa.laporan_pdf', compact('mahasiswa'));
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->download('laporan-mahasiswa.pdf');
     }
 }

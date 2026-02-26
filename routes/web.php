@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/mahasiswa/{mahasiswa}', [MahasiswaController::class, 'destroy'])
         ->name('mahasiswa.destroy')
         ->middleware('ikmi.email');
+    Route::get('/mahasiswa-cetak-pdf', [MahasiswaController::class, 'cetak_pdf'])->name('mahasiswa.cetak_pdf');
     Route::resource('mata-kuliah', MataKuliahController::class);
 });
 
